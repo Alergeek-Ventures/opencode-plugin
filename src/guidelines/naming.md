@@ -1,3 +1,7 @@
+---
+description: Validate naming choices using S-I-D principle and A/HC/LC pattern
+---
+
 # Naming
 
 ## Goal

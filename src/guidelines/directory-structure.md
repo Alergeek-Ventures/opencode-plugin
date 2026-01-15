@@ -1,3 +1,7 @@
+---
+description: Organize code into horizontal slices (lib) and vertical slices (features) with clear boundaries
+---
+
 # Directory Structure
 
 How we store and organize our code is vital.

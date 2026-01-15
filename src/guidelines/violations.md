@@ -1,3 +1,7 @@
+---
+description: Document deviations from guidelines with comments explaining why
+---
+
 # Violations
 
 ## Goal

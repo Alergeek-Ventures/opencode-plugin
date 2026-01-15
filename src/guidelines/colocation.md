@@ -1,3 +1,7 @@
+---
+description: Place code as close to where it's relevant as possible
+---
+
 # Colocation
 
 Place code as close to where it's relevant as possible. Things that change together

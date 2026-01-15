@@ -1,3 +1,7 @@
+---
+description: Minimize mental effort by flattening control flow and avoiding unnecessary abstraction
+---
+
 # Reduce cognitive load
 
 Cognitive load is how much a developer needs to think in order to complete a

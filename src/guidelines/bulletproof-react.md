@@ -1,3 +1,7 @@
+---
+description: Feature-based React architecture with colocated code and strict hook usage rules
+---
+
 # Bulletproof React
 
 ## Introduction

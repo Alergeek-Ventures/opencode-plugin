@@ -1,3 +1,7 @@
+---
+description: One PR should address one concern; avoid scope creep
+---
+
 # Focused changes
 
 Changes in the codebase should be focused and well-defined. Optimally - one PR

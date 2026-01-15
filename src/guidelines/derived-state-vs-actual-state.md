@@ -1,3 +1,7 @@
+---
+description: Minimize stored state; derive what can be computed
+---
+
 # State management
 
 We should minimize the amount of stored state in our applications. Quite often, the less we

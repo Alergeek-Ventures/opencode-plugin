@@ -1,3 +1,7 @@
+---
+description: Challenge optimizations that sacrifice readability without evidence of need
+---
+
 # Premature optimization
 
 We should never optimize prematurely - if it costs readability, maintainability,

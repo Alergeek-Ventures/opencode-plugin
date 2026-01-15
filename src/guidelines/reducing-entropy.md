@@ -1,3 +1,7 @@
+---
+description: Fight complexity; leave the codebase better than you found it
+---
+
 # Reducing Entropy
 
 ## Philosophy

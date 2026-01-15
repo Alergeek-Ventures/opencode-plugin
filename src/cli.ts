@@ -84,10 +84,12 @@ interface AssetGroup {
  * Install a group of assets (check collisions, copy files, log results)
  */
 async function installAssets(
-  group: AssetGroup
+  group: AssetGroup,
+  options: { overwrite?: boolean } = {}
 ): Promise<{ collisions: string[]; copied: string[] }> {
+  const { overwrite = false } = options;
   const collisions = await checkCollisions(group.sourceDir, group.targetDir);
-  if (collisions.length > 0) {
+  if (collisions.length > 0 && !overwrite) {
     return { collisions, copied: [] };
   }
 
@@ -130,7 +132,12 @@ async function checkGlobalPluginStatus(configDir: string): Promise<boolean> {
   }
 }
 
-async function init() {
+interface InitOptions {
+  overwrite?: boolean;
+}
+
+async function init(options: InitOptions = {}) {
+  const { overwrite = false } = options;
   const packageDir = getPackageDir();
   const configDir = getConfigDir();
 
@@ -204,11 +211,16 @@ Warning: The following files already exist:`);
     for (const file of collisions) {
       console.log(`  - ${file}`);
     }
-    console.log(`
+    if (overwrite) {
+      console.log(`
+These files will be overwritten.`);
+    } else {
+      console.log(`
 To prevent data loss, installation will abort.
-Remove or rename the conflicting files and retry.
+Remove or rename the conflicting files, or use --overwrite to replace them.
 `);
-    process.exit(1);
+      process.exit(1);
+    }
   }
 
   // Ask for confirmation
@@ -222,7 +234,7 @@ Remove or rename the conflicting files and retry.
 
   // Install all asset groups
   for (const group of assetGroups) {
-    await installAssets(group);
+    await installAssets(group, { overwrite });
   }
 
   // Final message with plugin instructions
@@ -254,29 +266,43 @@ function showHelp() {
 ${PACKAGE_NAME}
 
 Usage:
-  bunx ${PACKAGE_NAME} init     Install agents and commands to ~/.config/opencode/
-  bunx ${PACKAGE_NAME} --help   Show this help message
+  bunx ${PACKAGE_NAME} init              Install agents and commands to ~/.config/opencode/
+  bunx ${PACKAGE_NAME} init --overwrite  Install and overwrite existing files
+  bunx ${PACKAGE_NAME} --help            Show this help message
+
+Options:
+  --overwrite, -f  Overwrite existing files instead of aborting
 
 The init command copies agent and command definitions to your OpenCode
 config directory. If any files already exist, installation will abort
-to prevent overwriting your customizations.
+to prevent overwriting your customizations unless --overwrite is used.
 `);
 }
 
 // Main
-const command = Bun.argv[2];
+const args = Bun.argv.slice(2);
+const overwrite = args.includes("--overwrite") || args.includes("-f");
+const command = args.find((a) => !a.startsWith("-"));
 
 switch (command) {
   case "init":
-    await init();
+    await init({ overwrite });
     break;
-  case "--help":
-  case "-h":
   case undefined:
-    showHelp();
+    if (!overwrite) {
+      showHelp();
+    } else {
+      console.error(`No command specified.`);
+      console.error(`Run 'bunx ${PACKAGE_NAME} --help' for usage.\n`);
+      process.exit(1);
+    }
     break;
   default:
-    console.error(`Unknown command: ${command}`);
-    console.error(`Run 'bunx ${PACKAGE_NAME} --help' for usage.\n`);
-    process.exit(1);
+    if (command === "--help" || command === "-h") {
+      showHelp();
+    } else {
+      console.error(`Unknown command: ${command}`);
+      console.error(`Run 'bunx ${PACKAGE_NAME} --help' for usage.\n`);
+      process.exit(1);
+    }
 }

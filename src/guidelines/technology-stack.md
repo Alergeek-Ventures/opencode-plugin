@@ -1,3 +1,7 @@
+---
+description: Preferred libraries and frameworks for TypeScript and Elixir projects
+---
+
 # Technology Stack
 
 ## Core Philosophy

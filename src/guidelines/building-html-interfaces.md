@@ -1,3 +1,7 @@
+---
+description: Prefer composition over configuration, keep logic out of templates, use container-based spacing
+---
+
 # Building HTML Interfaces
 
 ## Introduction

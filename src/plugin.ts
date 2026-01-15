@@ -12,7 +12,9 @@ export const AlergeekPlugin: Plugin = async () => {
         description: "Lists all available guidelines",
         args: {},
         execute: async () => {
-          return guidelineNames.join(",");
+          return guidelineNames
+            .map((name) => `\`${name}\`: ${guidelines[name]?.description ?? "No description"}`)
+            .join("\n");
         },
       },
       readGuideline: {
@@ -21,7 +23,7 @@ export const AlergeekPlugin: Plugin = async () => {
           guideline: tool.schema.enum(guidelineNames)
         },
         execute: async ({guideline}: {guideline: typeof guidelineNames[number]}) => {
-          return guidelines[guideline] ?? "Guideline not found";
+          return guidelines[guideline]?.content ?? "Guideline not found";
         },
       }
     },
