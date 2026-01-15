@@ -21,7 +21,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "av-reviewer": "./dist/cli.js"
+    "opencode": "dist/cli.js"
   },
   "files": [
     "dist",

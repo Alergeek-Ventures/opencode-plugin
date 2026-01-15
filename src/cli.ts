@@ -116,7 +116,7 @@ async function prompt(message: string): Promise<boolean> {
 }
 
 async function checkGlobalPluginStatus(configDir: string): Promise<boolean> {
-  const configPath = join(configDir, "opencode.json");
+  const configPath = join(configDir, "config.json");
   const configFile = Bun.file(configPath);
 
   if (!(await configFile.exists())) {
@@ -125,7 +125,7 @@ async function checkGlobalPluginStatus(configDir: string): Promise<boolean> {
 
   try {
     const config = await configFile.json();
-    const plugins: unknown[] = config.plugins ?? [];
+    const plugins: unknown[] = config.plugin ?? [];
     return plugins.includes(PACKAGE_NAME);
   } catch {
     return false;
@@ -199,7 +199,7 @@ Files to install:`);
   console.log(`
 Plugin status:`);
   if (pluginConfigured) {
-    console.log(`  Already configured in ${configDir}/opencode.json`);
+    console.log(`  Already configured in ${configDir}/config.json`);
   } else {
     console.log(`  Not configured - you'll need to add it after installation.`);
   }
@@ -246,10 +246,10 @@ Done! You can now use:
 `);
   } else {
     console.log(`
-Done! To enable guidelines, add the plugin to ${configDir}/opencode.json:
+Done! To enable guidelines, add the plugin to ${configDir}/config.json:
 
   {
-    "plugins": ["${PACKAGE_NAME}"]
+    "plugin": ["${PACKAGE_NAME}"]
   }
 
 Without the plugin, agents will work but won't have access to guidelines.

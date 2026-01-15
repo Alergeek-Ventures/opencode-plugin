@@ -25,11 +25,11 @@ This will:
 2. Install the command to `~/.config/opencode/command/`
 3. Prompt you to add the plugin to your OpenCode config
 
-After running init, add the plugin to your `~/.config/opencode/opencode.json`:
+After running init, add the plugin to your `~/.config/opencode/config.json`:
 
 ```json
 {
-  "plugins": ["@alergeek-ventures/opencode"]
+  "plugin": ["@alergeek-ventures/opencode"]
 }
 ```
 

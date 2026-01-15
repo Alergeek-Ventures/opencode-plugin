@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 export interface Guideline {
   description: string;
   content: string;
@@ -30,15 +33,17 @@ function parseFrontmatter(raw: string): { data: Record<string, string>; content:
   return { data, content };
 }
 
-export async function getGuidelines(): Promise<Record<string, Guideline>> {
-  const guidelineGlob = new Bun.Glob("./src/guidelines/*.md");
+export function getGuidelines(): Record<string, Guideline> {
+  const guidelinesDir = join(import.meta.dir, "guidelines");
+  const guidelineGlob = new Bun.Glob("*.md");
 
   const guidelines: Record<string, Guideline> = {};
 
-  for await (const file of guidelineGlob.scan()) {
-    const raw = await Bun.file(file).text();
+  for (const file of guidelineGlob.scanSync(guidelinesDir)) {
+    const fullPath = join(guidelinesDir, file);
+    const raw = readFileSync(fullPath, "utf8");
     const { data, content } = parseFrontmatter(raw);
-    const name = file.replace("./src/guidelines/", "").replace(".md", "");
+    const name = file.replace(".md", "");
     guidelines[name] = {
       description: data.description ?? "",
       content: content.trim(),
@@ -48,6 +53,6 @@ export async function getGuidelines(): Promise<Record<string, Guideline>> {
   return guidelines;
 }
 
-export async function getGuidelineNames() {
-  return Object.keys(await getGuidelines());
+export function getGuidelineNames() {
+  return Object.keys(getGuidelines());
 }

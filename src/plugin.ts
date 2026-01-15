@@ -1,8 +1,8 @@
 import { type Plugin, tool } from "@opencode-ai/plugin";
 import { getGuidelines, getGuidelineNames } from "./guidelines" with { type: 'macro'}
 
-const guidelines = await getGuidelines();
-const guidelineNames = await getGuidelineNames();
+const guidelines = getGuidelines();
+const guidelineNames = getGuidelineNames();
 
 
 export const AlergeekPlugin: Plugin = async () => {
