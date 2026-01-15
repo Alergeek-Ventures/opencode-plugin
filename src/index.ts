@@ -1,0 +1,1 @@
+export { AlergeekPlugin } from "./plugin";
