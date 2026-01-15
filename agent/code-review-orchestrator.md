@@ -25,12 +25,14 @@ List files: `git diff --name-only origin/main`. You shouldn't check autogenerate
 
 ### Phase 2: Subagents
 
-Don't overload yourself loading all the guidelines - instead, spin subagents (file-level-code-reviewer) to look at 3-5 guidelines themselves and validate violations. You just gather feedback from them. Do not overspawn subagents - if changed file count is low, just check things yourself.
+Don't overload yourself loading all the guidelines - instead, spin subagents (file-level-code-reviewer) to look at 3-5 guidelines each and validate violations. You just gather feedback from them. Do not overspawn subagents - if changed file count is low, just load the guidelines yourself and check changes.
 
 Rules of thumb:
 - up to 300 lines changed - just do all yourself.
 - up to 1000 lines changed - use a 2-3 subagents depending on actual file count
 - more than that - spilt by files, not by guidelines; send 5-10 files to each subagent, ask to verify 3-5 guidelines; keep on adding until all checked.
+
+*All the guidelines need to be verified - either by you or subagents.*
 
 ### Phase 3: Collect
 
