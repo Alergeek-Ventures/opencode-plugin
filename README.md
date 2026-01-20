@@ -16,7 +16,7 @@ The review focuses on architectural concerns, following the guidelines we have a
 ## Installation
 
 ```bash
-bunx @alergeek-ventures/opencode init
+bunx @alergeek-ventures/opencode@latest init
 ```
 
 This will:
