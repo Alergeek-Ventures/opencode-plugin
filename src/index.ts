@@ -1,1 +1,1 @@
-export { AlergeekPlugin } from "./plugin";
+export { default, AlergeekPlugin } from "./plugin";

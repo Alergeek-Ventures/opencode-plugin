@@ -29,7 +29,7 @@
     "command"
   ],
   "scripts": {
-    "build": "bun build src/index.ts --outfile dist/index.js --target bun --external @opencode-ai/plugin && bun build src/cli.ts --outfile dist/cli.js --target bun",
+    "build": "bun build src/index.ts --outfile dist/index.js --target bun --external @opencode/plugin && bun build src/cli.ts --outfile dist/cli.js --target bun",
     "prepublishOnly": "bun run build"
   },
   "engines": {
@@ -39,7 +39,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@opencode-ai/plugin": "^1.0.218"
+    "@opencode/plugin": "^2.1.4"
   },
   "peerDependencies": {
     "bun": ">=1.0.0"
